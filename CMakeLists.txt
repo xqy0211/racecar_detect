@@ -1,0 +1,54 @@
+################################################################################
+# Set minimum required version of cmake, project name and compile options
+################################################################################
+cmake_minimum_required(VERSION 2.8.3)
+project(racecar_detect)
+
+################################################################################
+# Find catkin packages and libraries for catkin and system dependencies
+################################################################################
+find_package(catkin REQUIRED COMPONENTS rospy std_msgs dynamic_reconfigure)
+
+################################################################################
+# Setup for python modules and scripts
+################################################################################
+catkin_python_setup()
+
+################################################################################
+# Declare ROS messages, services and actions
+################################################################################
+
+################################################################################
+# Declare ROS dynamic reconfigure parameters
+################################################################################
+generate_dynamic_reconfigure_options(
+  cfg/DetectLaneParams.cfg
+)
+
+################################################################################
+# Declare catkin specific configuration to be passed to dependent projects
+################################################################################
+catkin_package(
+  CATKIN_DEPENDS dynamic_reconfigure
+)
+
+################################################################################
+# Build
+################################################################################
+
+################################################################################
+# Install
+################################################################################
+catkin_install_python(PROGRAMS
+  nodes/detect_lane
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(DIRECTORY cfg file launch param
+	DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+
+################################################################################
+# Test
+################################################################################
+
